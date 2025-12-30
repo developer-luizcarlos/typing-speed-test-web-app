@@ -30,3 +30,12 @@ body {
 	left: 50%;
 	transform: translateX(-50%);
 }
+
+.char_right_typed {
+	color: hsl(140, 63%, 57%);
+}
+
+.char_wrong_typed {
+	color: hsl(354, 63%, 57%);
+	text-decoration: underline;
+}
