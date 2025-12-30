@@ -1,0 +1,60 @@
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.game_info {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.group {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 10px;
+}
+
+.dt {
+	color: hsl(240, 1%, 59%);
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.dd {
+	font-weight: bold;
+}
+
+.dd_accuracy {
+	color: hsl(354, 63%, 57%);
+}
+
+.dd_time {
+	color: hsl(49, 85%, 70%);
+}
+
+.dd_wpm {
+	color: hsl(0, 0%, 100%);
+}
+
+.game_config_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 20px;
+	column-rule: solid 1px hsl(0, 0%, 15%);
+}
+
+.pseudo_label {
+	color: hsl(240, 1%, 59%);
+	font-size: 0.9rem;
+	font-weight: 300;
+}
+
+.game_config {
+	display: flex;
+	align-items: center;
+	column-gap: 25px;
+}
