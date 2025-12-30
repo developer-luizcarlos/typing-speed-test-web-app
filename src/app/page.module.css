@@ -11,3 +11,22 @@ body {
 	margin-block: 1rem;
 	padding-block: 2rem;
 }
+
+.btn_restart {
+	background-color: hsl(0, 0%, 15%);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	color: hsl(0, 0%, 100%);
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 10px;
+	padding: 0.75rem;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
