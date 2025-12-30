@@ -40,6 +40,42 @@ export default function Home() {
 		});
 	}
 
+	function renderTextCharsInSpans() {
+		const textChars = text.split("");
+
+		return textChars.map((t, index) => {
+			const isWhiteSpace = t === " ";
+
+			const isCharIndexGreaterThanTypedLettersLength =
+				index >= typedKeys.length;
+
+			if (isWhiteSpace || isCharIndexGreaterThanTypedLettersLength) {
+				return <span key={index}>{t}</span>;
+			}
+
+			const correspondingTypedKey = typedKeys[index];
+
+			const areSameLetter = correspondingTypedKey === t;
+
+			return (
+				<span
+					key={index}
+					className={`${areSameLetter ? styles.char_right_typed : styles.char_wrong_typed}`}
+				>
+					{t}
+				</span>
+			);
+		});
+	}
+
+	useEffect(() => {
+		function updateTypedKeys() {
+			setTypedKeys([]);
+		}
+
+		updateTypedKeys();
+	}, [text]);
+
 	useEffect(() => {
 		fetchTextsObject().then(setTextsObject);
 	}, []);
@@ -68,7 +104,9 @@ export default function Home() {
 	return (
 		<div className={`${styles}`}>
 			<Header />
-			<main className={`${styles.main}`}></main>
+			<main key={text} className={`${styles.main}`}>
+				{renderTextCharsInSpans()}
+			</main>
 			<button className={`${styles.btn_restart}`}>
 				<span>Restart Test</span>
 				<Image
