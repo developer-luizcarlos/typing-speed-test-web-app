@@ -8,6 +8,7 @@ export default function Home() {
 	return (
 		<div className={`${styles}`}>
 			<Header />
+			<main className={`${styles.main}`}></main>
 		</div>
 	);
 }
