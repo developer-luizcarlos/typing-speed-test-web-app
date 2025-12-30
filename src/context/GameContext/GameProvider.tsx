@@ -6,8 +6,10 @@ import {createContext, useState} from "react";
 
 interface IGameContext {
 	difficult: Difficult;
+	level: number;
 	mode: Mode;
 	setDifficult: React.Dispatch<React.SetStateAction<Difficult>>;
+	setLevel: React.Dispatch<React.SetStateAction<number>>;
 	setMode: React.Dispatch<React.SetStateAction<Mode>>;
 }
 
@@ -19,10 +21,13 @@ interface Props {
 
 export default function GameProvider({children}: Props) {
 	const [difficult, setDifficult] = useState<Difficult>("EASY");
+	const [level, setLevel] = useState(1);
 	const [mode, setMode] = useState<Mode>("TIMED");
 
 	return (
-		<GameContext value={{difficult, mode, setDifficult, setMode}}>
+		<GameContext
+			value={{difficult, level, mode, setDifficult, setLevel, setMode}}
+		>
 			{children}
 		</GameContext>
 	);
