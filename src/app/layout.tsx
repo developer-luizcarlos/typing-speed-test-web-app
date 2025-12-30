@@ -2,6 +2,8 @@ import type {Metadata} from "next";
 import {Sora} from "next/font/google";
 import "./globals.css";
 
+import GameProvider from "@/context/GameContext/GameProvider";
+
 const soraFont = Sora({
 	display: "swap",
 	style: ["normal"],
@@ -21,7 +23,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en-US">
-			<body className={`${soraFont.className}`}>{children}</body>
+			<GameProvider>
+				<body className={`${soraFont.className}`}>{children}</body>
+			</GameProvider>
 		</html>
 	);
 }

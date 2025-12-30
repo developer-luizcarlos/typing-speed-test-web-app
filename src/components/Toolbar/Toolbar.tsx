@@ -4,7 +4,33 @@ import styles from "./toolbar.module.css";
 
 import Pill from "../Pill/Pill";
 
+import {Difficult} from "@/types/difficult.types";
+import {Mode} from "@/types/mode.types";
+
+import {GameContext} from "@/context/GameContext/GameProvider";
+
+import {useContext} from "react";
+
 export default function Toolbar() {
+	const {difficult, mode, setDifficult, setMode} =
+		useContext(GameContext)!;
+
+	function handleDifficultPillClick(gameDifficult: Difficult) {
+		if (difficult === gameDifficult) {
+			return;
+		}
+
+		setDifficult(gameDifficult);
+	}
+
+	function handleModePillClick(gameMode: Mode) {
+		if (mode === gameMode) {
+			return;
+		}
+
+		setMode(gameMode);
+	}
+
 	return (
 		<div className={`${styles.toolbar}`}>
 			<dl className={`${styles.game_info}`}>
@@ -26,19 +52,19 @@ export default function Toolbar() {
 					<span className={`${styles.pseudo_label}`}>Difficult: </span>
 					<div className={`${styles.group}`}>
 						<Pill
-							isHighlighted={true}
+							isHighlighted={difficult === "EASY"}
 							label="Easy"
-							handleClick={() => ""}
+							handleClick={() => handleDifficultPillClick("EASY")}
 						/>
 						<Pill
-							isHighlighted={false}
+							isHighlighted={difficult === "MEDIUM"}
 							label="Medium"
-							handleClick={() => ""}
+							handleClick={() => handleDifficultPillClick("MEDIUM")}
 						/>
 						<Pill
-							isHighlighted={false}
+							isHighlighted={difficult === "HARD"}
 							label="Hard"
-							handleClick={() => ""}
+							handleClick={() => handleDifficultPillClick("HARD")}
 						/>
 					</div>
 				</div>
@@ -46,14 +72,14 @@ export default function Toolbar() {
 					<span className={`${styles.pseudo_label}`}>Mode:</span>
 					<div className={`${styles.group}`}>
 						<Pill
-							isHighlighted={true}
+							isHighlighted={mode === "TIMED"}
 							label="Timed (60s)"
-							handleClick={() => console.log("ok")}
+							handleClick={() => handleModePillClick("TIMED")}
 						/>
 						<Pill
-							isHighlighted={false}
+							isHighlighted={mode === "PASSAGE"}
 							label="Passage"
-							handleClick={() => ""}
+							handleClick={() => handleModePillClick("PASSAGE")}
 						/>
 					</div>
 				</div>
