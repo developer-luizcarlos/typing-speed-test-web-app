@@ -8,16 +8,39 @@ import Header from "@/components/Header/Header";
 
 import {TextsObject} from "@/types/textsObject.types";
 
-import {useEffect, useState} from "react";
+import {GameContext} from "@/context/GameContext/GameProvider";
+
+import {useContext, useEffect, useState} from "react";
 
 import {fetchTextsObject} from "@/helpers/fetchTextsObject";
+import {getTextBasedOnGivenDifficultAndLevel} from "@/helpers/getTextBasedOnGivenDifficultAndLevel";
 
 export default function Home() {
+	const {difficult, level} = useContext(GameContext)!;
+
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
+	const [text, setText] = useState("");
 
 	useEffect(() => {
 		fetchTextsObject().then(setTextsObject);
 	}, []);
+
+	useEffect(() => {
+		if (textsObject) {
+			const textBasedOnDifficultAndLevel =
+				getTextBasedOnGivenDifficultAndLevel(
+					textsObject,
+					difficult,
+					level,
+				);
+
+			function updateText() {
+				setText(textBasedOnDifficultAndLevel);
+			}
+
+			updateText();
+		}
+	}, [difficult, level, textsObject]);
 
 	return (
 		<div className={`${styles}`}>
