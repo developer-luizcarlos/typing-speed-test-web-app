@@ -10,17 +10,12 @@ import {TextsObject} from "@/types/textsObject.types";
 
 import {useEffect, useState} from "react";
 
+import {fetchTextsObject} from "@/helpers/fetchTextsObject";
+
 export default function Home() {
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 
 	useEffect(() => {
-		async function fetchTextsObject(): Promise<TextsObject> {
-			const response = await fetch("data.json");
-			const textsObject = (await response.json()) as TextsObject;
-
-			return textsObject;
-		}
-
 		fetchTextsObject().then(setTextsObject);
 	}, []);
 
