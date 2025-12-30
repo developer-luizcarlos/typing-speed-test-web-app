@@ -14,12 +14,31 @@ import {useContext, useEffect, useState} from "react";
 
 import {fetchTextsObject} from "@/helpers/fetchTextsObject";
 import {getTextBasedOnGivenDifficultAndLevel} from "@/helpers/getTextBasedOnGivenDifficultAndLevel";
+import {isValidKey} from "@/helpers/isValidKey";
+import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
 export default function Home() {
 	const {difficult, level} = useContext(GameContext)!;
 
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 	const [text, setText] = useState("");
+	const [typedKeys, setTypedKeys] = useState<string[]>([]);
+
+	function handleKeyboard(event: KeyboardEvent) {
+		const key = event.key;
+
+		preventBrowserShortcuts(event);
+
+		const controlWasUsed = event.ctrlKey;
+
+		if (!isValidKey(key) || controlWasUsed) {
+			return;
+		}
+
+		setTypedKeys(t => {
+			return [...t, key];
+		});
+	}
 
 	useEffect(() => {
 		fetchTextsObject().then(setTextsObject);
@@ -41,6 +60,10 @@ export default function Home() {
 			updateText();
 		}
 	}, [difficult, level, textsObject]);
+
+	useEffect(() => {
+		document.addEventListener("keydown", event => handleKeyboard(event));
+	}, []);
 
 	return (
 		<div className={`${styles}`}>
