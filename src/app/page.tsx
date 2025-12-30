@@ -6,7 +6,24 @@ import Image from "next/image.js";
 
 import Header from "@/components/Header/Header";
 
+import {TextsObject} from "@/types/textsObject.types";
+
+import {useEffect, useState} from "react";
+
 export default function Home() {
+	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
+
+	useEffect(() => {
+		async function fetchTextsObject(): Promise<TextsObject> {
+			const response = await fetch("data.json");
+			const textsObject = (await response.json()) as TextsObject;
+
+			return textsObject;
+		}
+
+		fetchTextsObject().then(setTextsObject);
+	}, []);
+
 	return (
 		<div className={`${styles}`}>
 			<Header />
