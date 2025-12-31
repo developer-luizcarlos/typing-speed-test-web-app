@@ -11,7 +11,17 @@ import {GameContext} from "@/context/GameContext/GameProvider";
 
 import {useContext} from "react";
 
-export default function Toolbar() {
+interface Props {
+	accuracyValue: number;
+	timeValue: number;
+	wpmValue: number;
+}
+
+export default function Toolbar({
+	accuracyValue,
+	timeValue,
+	wpmValue,
+}: Props) {
 	const {difficult, mode, setDifficult, setMode} =
 		useContext(GameContext)!;
 
@@ -36,15 +46,17 @@ export default function Toolbar() {
 			<dl className={`${styles.game_info}`}>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>WPM:</dt>
-					<dd className={`${styles.dd} ${styles.dd_wpm}`}>00</dd>
+					<dd className={`${styles.dd} ${styles.dd_wpm}`}>{wpmValue}</dd>
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Accuracy:</dt>
-					<dd className={`${styles.dd} ${styles.dd_accuracy}`}>00%</dd>
+					<dd className={`${styles.dd} ${styles.dd_accuracy}`}>
+						{accuracyValue}%
+					</dd>
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Time</dt>
-					<dd className={`${styles.dd} ${styles.dd_time}`}>0:00</dd>
+					<dd className={`${styles.dd} ${styles.dd_time}`}>{timeValue}</dd>
 				</div>
 			</dl>
 			<div className={`${styles.game_config_container}`}>

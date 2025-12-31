@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Image from "next/image.js";
 
 import Header from "@/components/Header/Header";
+import Toolbar from "@/components/Toolbar/Toolbar";
 
 import {TextsObject} from "@/types/textsObject.types";
 
@@ -104,6 +105,7 @@ export default function Home() {
 	return (
 		<div className={`${styles}`}>
 			<Header />
+			<Toolbar accuracyValue={0} timeValue={0} wpmValue={0} />
 			<main key={text} className={`${styles.main}`}>
 				{renderTextCharsInSpans()}
 			</main>
