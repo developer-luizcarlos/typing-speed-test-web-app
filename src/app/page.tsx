@@ -20,12 +20,14 @@ import {isValidKey} from "@/helpers/isValidKey";
 import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
 export default function Home() {
-	const {difficult, level} = useContext(GameContext)!;
+	const {difficult, level, mode} = useContext(GameContext)!;
 
 	const [accuracy, setAccuracy] = useState(0);
+	const [canPlay, setCanPlay] = useState(true);
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 	const [text, setText] = useState("");
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
+	const [time, setTime] = useState(0);
 
 	function handleKeyboard(event: KeyboardEvent) {
 		const key = event.key;
@@ -70,6 +72,36 @@ export default function Home() {
 			);
 		});
 	}
+
+	useEffect(() => {
+		function updateTime(time: number) {
+			setTime(time);
+		}
+
+		updateTime(0);
+	}, [text, mode]);
+
+	useEffect(() => {
+		if (canPlay) {
+			const timer = setInterval(() => {
+				setTime(t => {
+					return t + 1;
+				});
+			}, 1000);
+
+			return () => clearInterval(timer);
+		}
+	}, [canPlay]);
+
+	useEffect(() => {
+		if (mode === "TIMED" && time === 60) {
+			function updateCanPlay(canPlay: boolean): void {
+				setCanPlay(canPlay);
+			}
+
+			updateCanPlay(false);
+		}
+	}, [time, mode]);
 
 	useEffect(() => {
 		function updateTypedKeys() {
@@ -140,7 +172,7 @@ export default function Home() {
 			<Header />
 			<Toolbar
 				accuracyValue={isNaN(accuracy) ? 0 : accuracy}
-				timeValue={0}
+				timeValue={time}
 				wpmValue={0}
 			/>
 			<main key={text} className={`${styles.main}`}>

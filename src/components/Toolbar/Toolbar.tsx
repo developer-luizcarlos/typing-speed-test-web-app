@@ -7,6 +7,8 @@ import Pill from "../Pill/Pill";
 import {Difficult} from "@/types/difficult.types";
 import {Mode} from "@/types/mode.types";
 
+import {convertSecondsToMinutesAndSeconds} from "@/helpers/convertSecondsToMinutesAndSeconds";
+
 import {GameContext} from "@/context/GameContext/GameProvider";
 
 import {useContext} from "react";
@@ -56,7 +58,9 @@ export default function Toolbar({
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Time</dt>
-					<dd className={`${styles.dd} ${styles.dd_time}`}>{timeValue}</dd>
+					<dd className={`${styles.dd} ${styles.dd_time}`}>
+						{convertSecondsToMinutesAndSeconds(timeValue)}
+					</dd>
 				</div>
 			</dl>
 			<div className={`${styles.game_config_container}`}>
