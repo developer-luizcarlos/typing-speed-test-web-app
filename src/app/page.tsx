@@ -13,6 +13,7 @@ import {GameContext} from "@/context/GameContext/GameProvider";
 
 import {useContext, useEffect, useState} from "react";
 
+import {calculateAccuracy} from "@/helpers/calculateAccuracy";
 import {fetchTextsObject} from "@/helpers/fetchTextsObject";
 import {getTextBasedOnGivenDifficultAndLevel} from "@/helpers/getTextBasedOnGivenDifficultAndLevel";
 import {isValidKey} from "@/helpers/isValidKey";
@@ -21,6 +22,7 @@ import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 export default function Home() {
 	const {difficult, level} = useContext(GameContext)!;
 
+	const [accuracy, setAccuracy] = useState(0);
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 	const [text, setText] = useState("");
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
@@ -102,10 +104,45 @@ export default function Home() {
 		document.addEventListener("keydown", event => handleKeyboard(event));
 	}, []);
 
+	useEffect(() => {
+		const typedKeysQuantity = typedKeys.length;
+		let correctTypedKeysQuantity = 0;
+
+		const textChars = text.split("");
+		// TODO: remove after refactoring handleKeyboard ↓
+		const textCharsQuantity = textChars.length;
+
+		// TODO: remove after refactoring handleKeyboard ↓
+		if (typedKeysQuantity >= textCharsQuantity) {
+			return;
+		}
+
+		for (let i = 0; i < typedKeysQuantity; i++) {
+			const char = textChars[i];
+			const key = typedKeys[i];
+
+			if (char === key) {
+				correctTypedKeysQuantity++;
+			}
+		}
+
+		function updateAccuracy(accuracy: number): void {
+			setAccuracy(accuracy);
+		}
+
+		updateAccuracy(
+			calculateAccuracy(correctTypedKeysQuantity, typedKeysQuantity),
+		);
+	}, [text, typedKeys]);
+
 	return (
 		<div className={`${styles}`}>
 			<Header />
-			<Toolbar accuracyValue={0} timeValue={0} wpmValue={0} />
+			<Toolbar
+				accuracyValue={isNaN(accuracy) ? 0 : accuracy}
+				timeValue={0}
+				wpmValue={0}
+			/>
 			<main key={text} className={`${styles.main}`}>
 				{renderTextCharsInSpans()}
 			</main>
