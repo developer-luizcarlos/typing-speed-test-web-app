@@ -6,10 +6,41 @@ body {
 .main {
 	border-top: 1px solid hsl(0, 0%, 15%);
 	border-bottom: 1px solid hsl(0, 0%, 15%);
-	color: hsl(240, 1%, 59%);
-	font-size: 1.5rem;
 	margin-block: 1rem;
 	padding-block: 2rem;
+	position: relative;
+}
+
+.main_render_area {
+	color: hsl(240, 1%, 59%);
+	font-size: 1.5rem;
+}
+
+.main_render_area.blur {
+	filter: blur(10px);
+}
+
+.start_test_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	row-gap: 20px;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+}
+
+.start_test_container_hidden {
+	display: none;
+}
+
+.start_test_message {
+	color: hsl(0, 0%, 100%);
+	font-size: 0.85rem;
+	font-weight: bold;
 }
 
 .btn_restart {

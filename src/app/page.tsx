@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Image from "next/image.js";
 
 import Header from "@/components/Header/Header";
+import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import Toolbar from "@/components/Toolbar/Toolbar";
 
 import {TextsObject} from "@/types/textsObject.types";
@@ -23,7 +24,9 @@ export default function Home() {
 	const {difficult, level, mode} = useContext(GameContext)!;
 
 	const [accuracy, setAccuracy] = useState(0);
-	const [canPlay, setCanPlay] = useState(true);
+	const [canPlay, setCanPlay] = useState(false);
+	const [shouldRenderStartTestModal, setShouldRenderStartTestModal] =
+		useState(true);
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 	const [text, setText] = useState("");
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
@@ -43,6 +46,11 @@ export default function Home() {
 		setTypedKeys(t => {
 			return [...t, key];
 		});
+	}
+
+	function handleHideStartTestModalClick() {
+		setCanPlay(true);
+		setShouldRenderStartTestModal(false);
 	}
 
 	function renderTextCharsInSpans() {
@@ -133,8 +141,14 @@ export default function Home() {
 	}, [difficult, level, textsObject]);
 
 	useEffect(() => {
-		document.addEventListener("keydown", event => handleKeyboard(event));
-	}, []);
+		if (canPlay) {
+			document.addEventListener("keydown", handleKeyboard);
+		}
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyboard);
+		};
+	}, [canPlay]);
 
 	useEffect(() => {
 		const typedKeysQuantity = typedKeys.length;
@@ -176,17 +190,35 @@ export default function Home() {
 				wpmValue={0}
 			/>
 			<main key={text} className={`${styles.main}`}>
-				{renderTextCharsInSpans()}
+				<div
+					className={`${styles.main_render_area} ${shouldRenderStartTestModal && styles.blur}`}
+				>
+					{renderTextCharsInSpans()}
+				</div>
+				<div
+					onClick={handleHideStartTestModalClick}
+					className={`${styles.start_test_container} ${!shouldRenderStartTestModal && styles.start_test_container_hidden}`}
+				>
+					<PrimaryButton
+						label="Start Typing Test"
+						handleCLick={handleHideStartTestModalClick}
+					/>
+					<span className={`${styles.start_test_message}`}>
+						Or click the text and start typing.
+					</span>
+				</div>
 			</main>
-			<button className={`${styles.btn_restart}`}>
-				<span>Restart Test</span>
-				<Image
-					src={"/images/icon-restart.svg"}
-					alt="restart icon"
-					height={20}
-					width={20}
-				/>
-			</button>
+			{!shouldRenderStartTestModal && (
+				<button className={`${styles.btn_restart}`}>
+					<span>Restart Test</span>
+					<Image
+						src={"/images/icon-restart.svg"}
+						alt="restart icon"
+						height={20}
+						width={20}
+					/>
+				</button>
+			)}
 		</div>
 	);
 }
