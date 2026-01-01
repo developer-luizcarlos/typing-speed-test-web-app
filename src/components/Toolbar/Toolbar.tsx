@@ -38,7 +38,9 @@ export default function Toolbar({
 			<dl className={`${styles.game_info}`}>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>WPM:</dt>
-					<dd className={`${styles.dd} ${styles.dd_wpm}`}>{wpmValue}</dd>
+					<dd className={`${styles.dd} ${styles.dd_wpm}`}>
+						{wpmValue < 10 ? `0${wpmValue}` : wpmValue}
+					</dd>
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Accuracy:</dt>
