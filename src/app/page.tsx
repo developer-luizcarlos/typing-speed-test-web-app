@@ -1,6 +1,5 @@
 "use client";
 
-// TODO: start canPlay to true when game's difficult and mode changes;
 // TODO: give pills handlers as props on page.tsx;
 // TODO: avoid pills handlers when game didn't start;
 
@@ -90,8 +89,20 @@ export default function Home() {
 	}
 
 	/**
-	 * Reset accuracy value
-	 * each time game's mode
+	 * canPlay's state is going
+	 * to be set to true each time
+	 * game's difficult and mode
+	 * changes its value.
+	 */
+	useEffect(() => {
+		(() => {
+			setCanPlay(true);
+		})();
+	}, [difficult, mode]);
+
+	/**
+	 * Reset accuracy and typedKeys
+	 * values each time game's mode
 	 * changes its value.
 	 */
 	useEffect(() => {
