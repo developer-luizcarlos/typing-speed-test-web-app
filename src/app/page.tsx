@@ -1,8 +1,5 @@
 "use client";
 
-// TODO: give pills handlers as props on page.tsx;
-// TODO: avoid pills handlers when game didn't start;
-
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
@@ -24,7 +21,8 @@ import {isValidKey} from "@/helpers/isValidKey";
 import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
 export default function Home() {
-	const {difficult, level, mode} = useContext(GameContext)!;
+	const {difficult, level, mode, setDifficult, setMode} =
+		useContext(GameContext)!;
 
 	const [accuracy, setAccuracy] = useState(0);
 	const [canPlay, setCanPlay] = useState(false);
@@ -234,6 +232,21 @@ export default function Home() {
 				accuracyValue={isNaN(accuracy) ? 0 : accuracy}
 				timeValue={time}
 				wpmValue={0}
+				handleEasyPillClick={() =>
+					shouldRenderStartTestModal ? "" : setDifficult("EASY")
+				}
+				handleHardPillClick={() =>
+					shouldRenderStartTestModal ? "" : setDifficult("HARD")
+				}
+				handleMediumPillClick={() =>
+					shouldRenderStartTestModal ? "" : setDifficult("MEDIUM")
+				}
+				handlePassagePillClick={() =>
+					shouldRenderStartTestModal ? "" : setMode("PASSAGE")
+				}
+				handleTimedPillClick={() =>
+					shouldRenderStartTestModal ? "" : setMode("TIMED")
+				}
 			/>
 			<main key={text} className={`${styles.main}`}>
 				<div

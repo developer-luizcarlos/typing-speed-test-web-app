@@ -17,31 +17,24 @@ interface Props {
 	accuracyValue: number;
 	timeValue: number;
 	wpmValue: number;
+	handleEasyPillClick: () => void;
+	handleHardPillClick: () => void;
+	handleMediumPillClick: () => void;
+	handlePassagePillClick: () => void;
+	handleTimedPillClick: () => void;
 }
 
 export default function Toolbar({
 	accuracyValue,
 	timeValue,
 	wpmValue,
+	handleEasyPillClick,
+	handleHardPillClick,
+	handleMediumPillClick,
+	handlePassagePillClick,
+	handleTimedPillClick,
 }: Props) {
-	const {difficult, mode, setDifficult, setMode} =
-		useContext(GameContext)!;
-
-	function handleDifficultPillClick(gameDifficult: Difficult) {
-		if (difficult === gameDifficult) {
-			return;
-		}
-
-		setDifficult(gameDifficult);
-	}
-
-	function handleModePillClick(gameMode: Mode) {
-		if (mode === gameMode) {
-			return;
-		}
-
-		setMode(gameMode);
-	}
+	const {difficult, mode} = useContext(GameContext)!;
 
 	return (
 		<div className={`${styles.toolbar}`}>
@@ -70,17 +63,17 @@ export default function Toolbar({
 						<Pill
 							isHighlighted={difficult === "EASY"}
 							label="Easy"
-							handleClick={() => handleDifficultPillClick("EASY")}
+							handleClick={handleEasyPillClick}
 						/>
 						<Pill
 							isHighlighted={difficult === "MEDIUM"}
 							label="Medium"
-							handleClick={() => handleDifficultPillClick("MEDIUM")}
+							handleClick={handleMediumPillClick}
 						/>
 						<Pill
 							isHighlighted={difficult === "HARD"}
 							label="Hard"
-							handleClick={() => handleDifficultPillClick("HARD")}
+							handleClick={handleHardPillClick}
 						/>
 					</div>
 				</div>
@@ -90,12 +83,12 @@ export default function Toolbar({
 						<Pill
 							isHighlighted={mode === "TIMED"}
 							label="Timed (60s)"
-							handleClick={() => handleModePillClick("TIMED")}
+							handleClick={handleTimedPillClick}
 						/>
 						<Pill
 							isHighlighted={mode === "PASSAGE"}
 							label="Passage"
-							handleClick={() => handleModePillClick("PASSAGE")}
+							handleClick={handlePassagePillClick}
 						/>
 					</div>
 				</div>
