@@ -1,7 +1,8 @@
 "use client";
 
 // TODO: reset accuracy when game's mode changes;
-// TODO: start canPlay to true when game's difficult changes;
+// TODO: reset typedKeys when game's mode changes;
+// TODO: start canPlay to true when game's difficult and mode changes;
 // TODO: give pills handlers as props on page.tsx;
 // TODO: avoid pills handlers when game didn't start;
 
@@ -89,6 +90,17 @@ export default function Home() {
 			);
 		});
 	}
+
+	/**
+	 * Reset accuracy value
+	 * each time game's mode
+	 * changes its value.
+	 */
+	useEffect(() => {
+		(() => {
+			setAccuracy(0);
+		})();
+	}, [mode]);
 
 	/**
 	 * If all text characters are
