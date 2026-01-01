@@ -33,9 +33,40 @@ export default function Home() {
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
 	const [time, setTime] = useState(0);
 
+	const correctTypedKeysQuantity = useMemo(() => {
+		const limit = typedKeys.length;
+
+		let correct = 0;
+
+		for (let i = 0; i < limit; i++) {
+			const textCharAtIndex = text[i];
+			const typedKeyAtIndex = typedKeys[i];
+
+			const areCharsEqual = textCharAtIndex === typedKeyAtIndex;
+
+			if (areCharsEqual) {
+				correct += 1;
+			}
+		}
+
+		return correct;
+	}, [text, typedKeys]);
+
 	const isAllTextCharsHighlighted = useMemo(() => {
 		return typedKeys.length === text.length;
 	}, [text, typedKeys]);
+
+	const wpm = useMemo(() => {
+		if (time <= 0) {
+			return 0;
+		}
+
+		const calculatedWPM = Math.floor(
+			(correctTypedKeysQuantity * 60) / (time * 5),
+		);
+
+		return calculatedWPM < 3 ? 0 : calculatedWPM;
+	}, [correctTypedKeysQuantity, time]);
 
 	function handleKeyboard(event: KeyboardEvent) {
 		const key = event.key;
@@ -231,7 +262,7 @@ export default function Home() {
 			<Toolbar
 				accuracyValue={isNaN(accuracy) ? 0 : accuracy}
 				timeValue={time}
-				wpmValue={0}
+				wpmValue={isNaN(wpm) ? 0 : wpm}
 				handleEasyPillClick={() =>
 					shouldRenderStartTestModal ? "" : setDifficult("EASY")
 				}
