@@ -4,9 +4,6 @@ import styles from "./toolbar.module.css";
 
 import Pill from "../Pill/Pill";
 
-import {Difficult} from "@/types/difficult.types";
-import {Mode} from "@/types/mode.types";
-
 import {convertSecondsToMinutesAndSeconds} from "@/helpers/convertSecondsToMinutesAndSeconds";
 
 import {GameContext} from "@/context/GameContext/GameProvider";
