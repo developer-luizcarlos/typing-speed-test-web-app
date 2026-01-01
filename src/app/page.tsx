@@ -1,5 +1,10 @@
 "use client";
 
+// TODO: reset accuracy when game's mode changes;
+// TODO: start canPlay to true when game's difficult changes;
+// TODO: give pills handlers as props on page.tsx;
+// TODO: avoid pills handlers when game didn't start;
+
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
@@ -12,7 +17,7 @@ import {TextsObject} from "@/types/textsObject.types";
 
 import {GameContext} from "@/context/GameContext/GameProvider";
 
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 
 import {calculateAccuracy} from "@/helpers/calculateAccuracy";
 import {fetchTextsObject} from "@/helpers/fetchTextsObject";
@@ -31,6 +36,10 @@ export default function Home() {
 	const [text, setText] = useState("");
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
 	const [time, setTime] = useState(0);
+
+	const isAllTextCharsHighlighted = useMemo(() => {
+		return typedKeys.length === text.length;
+	}, [text, typedKeys]);
 
 	function handleKeyboard(event: KeyboardEvent) {
 		const key = event.key;
@@ -80,6 +89,21 @@ export default function Home() {
 			);
 		});
 	}
+
+	/**
+	 * If all text characters are
+	 * highlighted, then set canPlay's
+	 * state to false.
+	 */
+	useEffect(() => {
+		if (isAllTextCharsHighlighted) {
+			function updateCanPlay(canPlay: boolean) {
+				setCanPlay(canPlay);
+			}
+
+			updateCanPlay(false);
+		}
+	}, [isAllTextCharsHighlighted]);
 
 	useEffect(() => {
 		function updateTime(time: number) {
