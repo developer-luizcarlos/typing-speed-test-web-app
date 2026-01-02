@@ -459,7 +459,6 @@ export default function Home() {
 			{isGameEnded && (
 				<EndGameScreen
 					accuracy={accuracy}
-					btnIconPath="/images/icon-restart.svg"
 					btnLabel={endGameBtnLabel}
 					completedIconPath={endGameIconPath}
 					correctTypedCharsQuantity={correctTypedKeysQuantity}

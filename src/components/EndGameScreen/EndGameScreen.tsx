@@ -4,7 +4,6 @@ import Image from "next/image.js";
 
 interface Props {
 	accuracy: number;
-	btnIconPath?: string;
 	btnLabel: string;
 	completedIconPath: string;
 	correctTypedCharsQuantity: number;
@@ -24,7 +23,6 @@ export default function EndGameScreen({
 	message,
 	title,
 	wpm,
-	btnIconPath,
 	btnLabel,
 }: Props) {
 	return (
@@ -71,15 +69,13 @@ export default function EndGameScreen({
 			</main>
 			<button className={`${styles.btn}`} onClick={handleBtnClick}>
 				<span>{btnLabel}</span>
-				{btnIconPath && (
-					<Image
-						src={btnIconPath}
-						alt="icon"
-						height={18}
-						width={18}
-						className={`${styles.btn_icon}`}
-					/>
-				)}
+				<Image
+					src={"/images/icon-restart.svg"}
+					alt="icon"
+					height={18}
+					width={18}
+					className={`${styles.btn_icon}`}
+				/>
 			</button>
 		</div>
 	);
