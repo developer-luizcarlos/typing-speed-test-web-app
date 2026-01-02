@@ -94,6 +94,10 @@ export default function Home() {
 		return correct;
 	}, [text, typedKeys]);
 
+	const incorrectTypedCharsQuantity = useMemo(() => {
+		return text.length - correctTypedKeysQuantity;
+	}, [correctTypedKeysQuantity, text]);
+
 	const isAllTextCharsHighlighted = useMemo(() => {
 		return typedKeys.length === text.length;
 	}, [text, typedKeys]);
@@ -371,9 +375,9 @@ export default function Home() {
 					btnIconPath="/images/icon-restart.svg"
 					btnLabel="Go Again"
 					completedIconPath="/images/icon-completed.svg"
-					correctTypedCharsQuantity={0}
+					correctTypedCharsQuantity={correctTypedKeysQuantity}
 					handleBtnClick={() => ""}
-					incorrectTypedCharsQuantity={0}
+					incorrectTypedCharsQuantity={incorrectTypedCharsQuantity}
 					message="Solid run. Keep pushing to beat your high score."
 					title="Test Completed"
 					wpm={wpm}
