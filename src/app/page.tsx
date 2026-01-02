@@ -11,48 +11,6 @@
  * o valor de bestWPM vindo de localStorage.
  */
 
-/**
- * TODO: Implement a feature to appear after the game is
- * completed, that is, after the user typed all the
- * characters and has a good accuracy.
- *
- * If the conditions above to finish the test
- * are all of them true, so render a end game layout
- * instead of the game layout, hiding the text, the
- * reset button and more, keeping only the header.
- *
- * The end game layout depends if it is
- * the first time the user have completed a test
- * (use local storage to keep track of this info),
- * or the user just have achieved a new best wpm score
- * or a regular victory. For each of these scenarios,
- * render a different variation of a same component,
- * adapting that based on props.
- *
- * In all situations, increase the level
- * and, if the current level is ten, level will be one,
- * but the difficult will be increased. If the level is
- * ten and the difficult is already hard, repeat the test
- * for this level and difficult, but do not update level or
- * difficult.
- *
- * → use a useState, or useMemo, its better, by the way,
- *    to check if the game is ended and to render or the
- *    game layout (render area, toolbar, restart button)
- *    or the end game layout.
- *
- * → keep track of how many times the user has completed
- *    a test using local storage. It will be needed for
- *    choosing what type of end game layout will be rendered.
- */
-
-/**
- * TODO: O ícone no botão presente no component
- * EndGameScreen aparece em todos os casos. Não o torne
- * uma props opcional, mas deixe o caminho da imagem dentro
- * do componente.
- */
-
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
