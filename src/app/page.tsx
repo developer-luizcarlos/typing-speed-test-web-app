@@ -7,6 +7,11 @@
  */
 
 /**
+ * TODO: Renderizar em Header component
+ * o valor de bestWPM vindo de localStorage.
+ */
+
+/**
  * TODO: Implement a feature to appear after the game is
  * completed, that is, after the user typed all the
  * characters and has a good accuracy.
@@ -41,6 +46,13 @@
  *    choosing what type of end game layout will be rendered.
  */
 
+/**
+ * TODO: O ícone no botão presente no component
+ * EndGameScreen aparece em todos os casos. Não o torne
+ * uma props opcional, mas deixe o caminho da imagem dentro
+ * do componente.
+ */
+
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
@@ -67,7 +79,9 @@ export default function Home() {
 		useContext(GameContext)!;
 
 	const [accuracy, setAccuracy] = useState(0);
+	const [bestWPM, setBestWPM] = useState(0);
 	const [canPlay, setCanPlay] = useState(false);
+	const [completedTestsQuantity, setCompletedTestsQuantity] = useState(0);
 	const [shouldRenderStartTestModal, setShouldRenderStartTestModal] =
 		useState(true);
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
@@ -122,6 +136,46 @@ export default function Home() {
 		return calculatedWPM < 3 ? 0 : calculatedWPM;
 	}, [correctTypedKeysQuantity, time]);
 
+	const endGameBtnLabel = useMemo(() => {
+		if (!completedTestsQuantity) {
+			return "Go Again";
+		}
+
+		return "Beat this score";
+	}, [completedTestsQuantity]);
+
+	const endGameIconPath = useMemo(() => {
+		if (bestWPM !== 0 && wpm > bestWPM) {
+			return "/images/icon-new-pb.svg";
+		}
+
+		return "/images/icon-completed.svg";
+	}, [bestWPM, wpm]);
+
+	const endGameMessage = useMemo(() => {
+		if (!completedTestsQuantity) {
+			return "You've set the bar. Now the real challenge begins - time to beat it.";
+		}
+
+		if (wpm > bestWPM) {
+			return "You're getting faster. That was a incredible typing.";
+		}
+
+		return "Solid run. Keep pushing to beat your high score.";
+	}, [bestWPM, completedTestsQuantity, wpm]);
+
+	const endGameTitle = useMemo(() => {
+		if (!completedTestsQuantity) {
+			return "Baseline Estabilished";
+		}
+
+		if (wpm > bestWPM) {
+			return "High Scored Smashed!";
+		}
+
+		return "Test Completed";
+	}, [bestWPM, completedTestsQuantity, wpm]);
+
 	function handleKeyboard(event: KeyboardEvent) {
 		const key = event.key;
 
@@ -172,6 +226,39 @@ export default function Home() {
 			);
 		});
 	}
+
+	/**
+	 * Load items from localStorage
+	 * and sets its relatives states
+	 */
+	useEffect(() => {
+		const savedBestWPM = +localStorage.getItem("best-wpm")!;
+		const savedCompletedTestQuantity = +localStorage.getItem("completed")!;
+
+		(() => {
+			setBestWPM(savedBestWPM);
+			setCompletedTestsQuantity(savedCompletedTestQuantity);
+		})();
+	}, []);
+
+	/**
+	 * Save and get items in localStorage
+	 */
+	useEffect(() => {
+		if (isGameEnded) {
+			const bestWPM = +localStorage.getItem("best-wpm")!;
+
+			// New personal best
+			if (wpm > bestWPM) {
+				localStorage.setItem("best-wpm", wpm.toString());
+			}
+
+			const completedTestsQuantity = +localStorage.getItem("completed")!;
+			const incrementedQuantity = completedTestsQuantity + 1;
+
+			localStorage.setItem("completed", incrementedQuantity.toString());
+		}
+	}, [isGameEnded, wpm]);
 
 	/**
 	 * canPlay's state is going
@@ -373,13 +460,13 @@ export default function Home() {
 				<EndGameScreen
 					accuracy={accuracy}
 					btnIconPath="/images/icon-restart.svg"
-					btnLabel="Go Again"
-					completedIconPath="/images/icon-completed.svg"
+					btnLabel={endGameBtnLabel}
+					completedIconPath={endGameIconPath}
 					correctTypedCharsQuantity={correctTypedKeysQuantity}
 					handleBtnClick={() => ""}
 					incorrectTypedCharsQuantity={incorrectTypedCharsQuantity}
-					message="Solid run. Keep pushing to beat your high score."
-					title="Test Completed"
+					message={endGameMessage}
+					title={endGameTitle}
 					wpm={wpm}
 				/>
 			)}
