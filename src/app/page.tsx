@@ -1,6 +1,12 @@
 "use client";
 
 /**
+ * TODO: Reafact accuracy implementation
+ * as a value evalueted in a useMemo instead
+ * of a useEffect.
+ */
+
+/**
  * TODO: Implement a feature to appear after the game is
  * completed, that is, after the user typed all the
  * characters and has a good accuracy.
@@ -39,6 +45,7 @@ import styles from "./page.module.css";
 
 import Image from "next/image.js";
 
+import EndGameScreen from "@/components/EndGameScreen/EndGameScreen";
 import Header from "@/components/Header/Header";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import Toolbar from "@/components/Toolbar/Toolbar";
@@ -91,6 +98,14 @@ export default function Home() {
 		return typedKeys.length === text.length;
 	}, [text, typedKeys]);
 
+	const isGameEnded = useMemo(() => {
+		const minimumAccuracyRequired = 60;
+
+		return (
+			accuracy >= minimumAccuracyRequired && isAllTextCharsHighlighted
+		);
+	}, [isAllTextCharsHighlighted, accuracy]);
+
 	const wpm = useMemo(() => {
 		if (time <= 0) {
 			return 0;
@@ -119,6 +134,8 @@ export default function Home() {
 		});
 	}
 
+	// TODO: change this name to reveal its real action
+	// something like handleStartTestBtnCLick.
 	function handleHideStartTestModalClick() {
 		setCanPlay(true);
 		setShouldRenderStartTestModal(false);
@@ -294,46 +311,50 @@ export default function Home() {
 	return (
 		<div className={`${styles}`}>
 			<Header />
-			<Toolbar
-				accuracyValue={isNaN(accuracy) ? 0 : accuracy}
-				timeValue={time}
-				wpmValue={isNaN(wpm) ? 0 : wpm}
-				handleEasyPillClick={() =>
-					shouldRenderStartTestModal ? "" : setDifficult("EASY")
-				}
-				handleHardPillClick={() =>
-					shouldRenderStartTestModal ? "" : setDifficult("HARD")
-				}
-				handleMediumPillClick={() =>
-					shouldRenderStartTestModal ? "" : setDifficult("MEDIUM")
-				}
-				handlePassagePillClick={() =>
-					shouldRenderStartTestModal ? "" : setMode("PASSAGE")
-				}
-				handleTimedPillClick={() =>
-					shouldRenderStartTestModal ? "" : setMode("TIMED")
-				}
-			/>
-			<main key={text} className={`${styles.main}`}>
-				<div
-					className={`${styles.main_render_area} ${shouldRenderStartTestModal && styles.blur}`}
-				>
-					{renderTextCharsInSpans()}
-				</div>
-				<div
-					onClick={handleHideStartTestModalClick}
-					className={`${styles.start_test_container} ${!shouldRenderStartTestModal && styles.start_test_container_hidden}`}
-				>
-					<PrimaryButton
-						label="Start Typing Test"
-						handleCLick={handleHideStartTestModalClick}
-					/>
-					<span className={`${styles.start_test_message}`}>
-						Or click the text and start typing.
-					</span>
-				</div>
-			</main>
-			{!shouldRenderStartTestModal && (
+			{!isGameEnded && (
+				<Toolbar
+					accuracyValue={isNaN(accuracy) ? 0 : accuracy}
+					timeValue={time}
+					wpmValue={isNaN(wpm) ? 0 : wpm}
+					handleEasyPillClick={() =>
+						shouldRenderStartTestModal ? "" : setDifficult("EASY")
+					}
+					handleHardPillClick={() =>
+						shouldRenderStartTestModal ? "" : setDifficult("HARD")
+					}
+					handleMediumPillClick={() =>
+						shouldRenderStartTestModal ? "" : setDifficult("MEDIUM")
+					}
+					handlePassagePillClick={() =>
+						shouldRenderStartTestModal ? "" : setMode("PASSAGE")
+					}
+					handleTimedPillClick={() =>
+						shouldRenderStartTestModal ? "" : setMode("TIMED")
+					}
+				/>
+			)}
+			{!isGameEnded && (
+				<main key={text} className={`${styles.main}`}>
+					<div
+						className={`${styles.main_render_area} ${shouldRenderStartTestModal && styles.blur}`}
+					>
+						{renderTextCharsInSpans()}
+					</div>
+					<div
+						onClick={handleHideStartTestModalClick}
+						className={`${styles.start_test_container} ${!shouldRenderStartTestModal && styles.start_test_container_hidden}`}
+					>
+						<PrimaryButton
+							label="Start Typing Test"
+							handleCLick={handleHideStartTestModalClick}
+						/>
+						<span className={`${styles.start_test_message}`}>
+							Or click the text and start typing.
+						</span>
+					</div>
+				</main>
+			)}
+			{!shouldRenderStartTestModal && !isGameEnded && (
 				<button className={`${styles.btn_restart}`}>
 					<span>Restart Test</span>
 					<Image
@@ -343,6 +364,20 @@ export default function Home() {
 						width={20}
 					/>
 				</button>
+			)}
+			{isGameEnded && (
+				<EndGameScreen
+					accuracy={accuracy}
+					btnIconPath="/images/icon-restart.svg"
+					btnLabel="Go Again"
+					completedIconPath="/images/icon-completed.svg"
+					correctTypedCharsQuantity={0}
+					handleBtnClick={() => ""}
+					incorrectTypedCharsQuantity={0}
+					message="Solid run. Keep pushing to beat your high score."
+					title="Test Completed"
+					wpm={wpm}
+				/>
 			)}
 		</div>
 	);

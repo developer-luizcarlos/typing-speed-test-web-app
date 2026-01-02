@@ -1,0 +1,85 @@
+.end_game_screen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	row-gap: 25px;
+}
+
+.end_game_header {
+	text-align: center;
+}
+
+.end_game_title {
+	color: hsl(0, 0%, 100%);
+	font-size: 2rem;
+}
+
+.end_game_message {
+	color: hsl(240, 3%, 46%);
+	font-size: 1rem;
+}
+
+.result_container {
+	display: flex;
+	align-items: center;
+	column-gap: 25px;
+}
+
+.result {
+	border: 1px solid hsl(0, 0%, 15%);
+	border-radius: 10px;
+	min-width: 150px;
+	text-align: center;
+	padding: 0.8rem;
+}
+
+.result_title {
+	color: hsl(240, 3%, 46%);
+	font-weight: 500;
+}
+
+.result_value {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.result_value_wpm {
+	color: hsl(0, 0%, 100%);
+}
+
+.result_value_accuracy {
+	color: hsl(354, 63%, 57%);
+}
+
+.correct_typed {
+	color: hsl(140, 63%, 57%);
+}
+
+.incorrect_typed {
+	color: hsl(354, 63%, 57%);
+}
+
+.result_slash_divisor {
+	color: hsl(240, 3%, 46%);
+}
+
+.btn {
+	background-color: hsl(0, 0%, 100%);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	column-gap: 10px;
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: bold;
+	margin-top: 30px;
+	padding: 0.75rem;
+}
+
+.btn_icon {
+	filter: brightness(0%);
+}
