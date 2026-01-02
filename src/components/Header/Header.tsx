@@ -2,7 +2,11 @@ import styles from "./header.module.css";
 
 import Image from "next/image.js";
 
-export default function Header() {
+interface Props {
+	personalBestWPM: number;
+}
+
+export default function Header({personalBestWPM}: Props) {
 	return (
 		<header className={`${styles.header}`}>
 			<Image
@@ -21,7 +25,12 @@ export default function Header() {
 				/>
 				<dl className={`${styles.dl}`}>
 					<dt className={`${styles.dt}`}>Personal best:</dt>
-					<dd className={`${styles.dd}`}>00 WPM</dd>
+					<dd className={`${styles.dd}`}>
+						{personalBestWPM < 10 ?
+							`0${personalBestWPM}`
+						:	personalBestWPM}{" "}
+						WPM
+					</dd>
 				</dl>
 			</div>
 		</header>

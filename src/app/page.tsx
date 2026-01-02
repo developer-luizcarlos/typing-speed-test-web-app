@@ -6,11 +6,6 @@
  * of a useEffect.
  */
 
-/**
- * TODO: Renderizar em Header component
- * o valor de bestWPM vindo de localStorage.
- */
-
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
@@ -393,7 +388,7 @@ export default function Home() {
 
 	return (
 		<div className={`${styles}`}>
-			<Header />
+			<Header personalBestWPM={bestWPM} />
 			{!isGameEnded && (
 				<Toolbar
 					accuracyValue={isNaN(accuracy) ? 0 : accuracy}
