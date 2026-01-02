@@ -75,7 +75,7 @@ import {isValidKey} from "@/helpers/isValidKey";
 import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
 export default function Home() {
-	const {difficult, level, mode, setDifficult, setMode} =
+	const {difficult, level, mode, setDifficult, setLevel, setMode} =
 		useContext(GameContext)!;
 
 	const [accuracy, setAccuracy] = useState(0);
@@ -176,6 +176,40 @@ export default function Home() {
 		return "Test Completed";
 	}, [bestWPM, completedTestsQuantity, wpm]);
 
+	function handleEndGameBtnClick() {
+		const maxLevel = 10;
+
+		setAccuracy(0);
+		setTime(0);
+		setTypedKeys([]);
+
+		if (level === maxLevel) {
+			setDifficult(currentDifficult => {
+				if (currentDifficult === "EASY") {
+					return "MEDIUM";
+				} else if (currentDifficult === "MEDIUM") {
+					return "HARD";
+				} else {
+					/**
+					 * If the game is in
+					 * the last difficult
+					 * and last level, it
+					 * starts all again.
+					 */
+					return "EASY";
+				}
+			});
+		}
+
+		setLevel(currentLevel => {
+			if (currentLevel === maxLevel) {
+				return 1;
+			}
+
+			return (currentLevel += 1);
+		});
+	}
+
 	function handleKeyboard(event: KeyboardEvent) {
 		const key = event.key;
 
@@ -263,14 +297,14 @@ export default function Home() {
 	/**
 	 * canPlay's state is going
 	 * to be set to true each time
-	 * game's difficult and mode
+	 * game's difficult, mode or level
 	 * changes its value.
 	 */
 	useEffect(() => {
 		(() => {
 			setCanPlay(true);
 		})();
-	}, [difficult, mode]);
+	}, [difficult, level, mode]);
 
 	/**
 	 * Reset accuracy and typedKeys
@@ -462,7 +496,7 @@ export default function Home() {
 					btnLabel={endGameBtnLabel}
 					completedIconPath={endGameIconPath}
 					correctTypedCharsQuantity={correctTypedKeysQuantity}
-					handleBtnClick={() => ""}
+					handleBtnClick={handleEndGameBtnClick}
 					incorrectTypedCharsQuantity={incorrectTypedCharsQuantity}
 					message={endGameMessage}
 					title={endGameTitle}
