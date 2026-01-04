@@ -1,4 +1,4 @@
-export function preventBrowserShortcuts(event: KeyboardEvent) {
+export const preventBrowserShortcuts = (event: KeyboardEvent) => {
 	const pressedKey = event.key;
 
 	const triggerShortcutsKeys = ["/", "'"];
@@ -37,4 +37,4 @@ export function preventBrowserShortcuts(event: KeyboardEvent) {
 	if (shouldPreventDefaultBehavior) {
 		return event.preventDefault();
 	}
-}
+};
