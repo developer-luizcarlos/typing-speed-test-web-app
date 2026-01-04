@@ -5,6 +5,26 @@
  * of a useEffect.
  */
 
+/**
+ * TODO: using indexDB, keep tracking of the
+ * already achieved level on each of the game's
+ * difficult. Each time the player changes the game's
+ * difficult, the level to be applied will be loaded
+ * from indexDB considering if its null, which
+ * means the player never achieved a level before, being
+ * one if it is true, otherwise will be the previously
+ * achieved value.
+ *
+ * The achieved value will be registered on indexDB
+ * each time the game ends.
+ *
+ * The load of the current level will occur also
+ * when the player enters the web page, being loaded
+ * in the corresponding difficult.
+ */
+
+// TODO: Turn text state in a computed value using useMemo.
+
 import styles from "./page.module.css";
 
 import Image from "next/image.js";
@@ -18,7 +38,13 @@ import {TextsObject} from "@/types/textsObject.types";
 
 import {GameContext} from "@/context/GameContext/GameProvider";
 
-import {useContext, useEffect, useMemo, useState} from "react";
+import {
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from "react";
 
 import {calculateAccuracy} from "@/helpers/calculateAccuracy";
 import {fetchTextsObject} from "@/helpers/fetchTextsObject";
@@ -27,9 +53,14 @@ import {isValidKey} from "@/helpers/isValidKey";
 import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
 const Home: React.FC = () => {
+	// Constants
+	const TIME_LIMIT = 60;
+
+	// Game Context
 	const {difficult, level, mode, setDifficult, setLevel, setMode} =
 		useContext(GameContext)!;
 
+	// States
 	const [accuracy, setAccuracy] = useState(0);
 	const [bestWPM, setBestWPM] = useState(0);
 	const [canPlay, setCanPlay] = useState(false);
@@ -41,6 +72,12 @@ const Home: React.FC = () => {
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
 	const [time, setTime] = useState(0);
 
+	// Memoized values
+
+	/**
+	 * Get the quantity of correct typed
+	 * keys.
+	 */
 	const correctTypedKeysQuantity = useMemo(() => {
 		const limit = typedKeys.length;
 
@@ -60,11 +97,30 @@ const Home: React.FC = () => {
 		return correct;
 	}, [text, typedKeys]);
 
+	/**
+	 * Get the quantity of incorrect typed
+	 * keys.
+	 */
 	const incorrectTypedCharsQuantity = useMemo(() => {
+		/**
+		 * This will used when the game ends, getting
+		 * the incorrect typed keys quantity by comparing
+		 * the total quantity of characters the current displayed
+		 * text has and the quantity of correct typed keys. The difference
+		 * between these two is the quantity of characters incorrect typed.
+		 */
 		return text.length - correctTypedKeysQuantity;
 	}, [correctTypedKeysQuantity, text]);
 
 	const isAllTextCharsHighlighted = useMemo(() => {
+		/**
+		 * If the quantity of typed keys is equals to
+		 * the quantity of characters the current displayed
+		 * text has, then all attempts in the text were made.
+		 *
+		 * This logic is used to end the game and stops the timer.
+		 */
+
 		return typedKeys.length === text.length;
 	}, [text, typedKeys]);
 
@@ -128,7 +184,8 @@ const Home: React.FC = () => {
 		return "Test Completed";
 	}, [bestWPM, completedTestsQuantity, wpm]);
 
-	function handleEndGameBtnClick() {
+	// Handlers
+	const handleEndGameBtnClick = () => {
 		const maxLevel = 10;
 
 		setAccuracy(0);
@@ -160,9 +217,9 @@ const Home: React.FC = () => {
 
 			return (currentLevel += 1);
 		});
-	}
+	};
 
-	function handleKeyboard(event: KeyboardEvent) {
+	const handleKeyboard = (event: KeyboardEvent) => {
 		const key = event.key;
 
 		preventBrowserShortcuts(event);
@@ -176,16 +233,15 @@ const Home: React.FC = () => {
 		setTypedKeys(t => {
 			return [...t, key];
 		});
-	}
+	};
 
-	// TODO: change this name to reveal its real action
-	// something like handleStartTestBtnCLick.
-	function handleHideStartTestModalClick() {
+	const handleStartTestBtnClick = () => {
 		setCanPlay(true);
 		setShouldRenderStartTestModal(false);
-	}
+	};
 
-	function renderTextCharsInSpans() {
+	// Other functions
+	const renderTextCharsInSpans = useCallback(() => {
 		const textChars = text.split("");
 
 		return textChars.map((t, index) => {
@@ -211,7 +267,17 @@ const Home: React.FC = () => {
 				</span>
 			);
 		});
-	}
+	}, [text, typedKeys]);
+
+	// Effects
+
+	/**
+	 * Get the game texts available
+	 * and inserts them into a state.
+	 */
+	useEffect(() => {
+		fetchTextsObject().then(setTextsObject);
+	}, []);
 
 	/**
 	 * Load items from localStorage
@@ -228,7 +294,36 @@ const Home: React.FC = () => {
 	}, []);
 
 	/**
-	 * Save and get items in localStorage
+	 * Each time the game's difficult
+	 * is changed, the game's level is set to one.
+	 * This behavior has as reason the fact that,
+	 * if the played upgraded his level in a difficult,
+	 * this just works for that difficult, but for others
+	 * the player has not upgrade the level by passing
+	 * by all the previous tests in other levels in the new
+	 * difficults, having the player to increase his abillities
+	 * in these new difficults to get to this level in these too.
+	 *
+	 * Keeping the game's level while changing game's difficult
+	 * even though this level was achieved in another level is
+	 * considered a bug in this program.
+	 */
+	useEffect(() => {
+		(() => {
+			setLevel(1);
+		})();
+	}, [difficult, setLevel]);
+
+	/**
+	 * This effect performs tasks related
+	 * to saving and getting information from
+	 * localStorage. Firts, it compares if the
+	 * last bestWPM saved is less than the current wpm,
+	 * saving this one if that condition is true, having
+	 * the player a new bestWPM.
+	 *
+	 * It also saved the number of times a user complete
+	 * a test.
 	 */
 	useEffect(() => {
 		if (isGameEnded) {
@@ -249,8 +344,8 @@ const Home: React.FC = () => {
 	/**
 	 * canPlay's state is going
 	 * to be set to true each time
-	 * game's difficult, mode or level
-	 * changes its value.
+	 * game's difficult, level or mode
+	 * change its value.
 	 */
 	useEffect(() => {
 		(() => {
@@ -277,22 +372,28 @@ const Home: React.FC = () => {
 	 */
 	useEffect(() => {
 		if (isAllTextCharsHighlighted) {
-			function updateCanPlay(canPlay: boolean) {
-				setCanPlay(canPlay);
-			}
-
-			updateCanPlay(false);
+			(() => {
+				setCanPlay(false);
+			})();
 		}
 	}, [isAllTextCharsHighlighted]);
 
+	/**
+	 * Each time mode or text
+	 * state change, the time
+	 * will be set to zero.
+	 */
 	useEffect(() => {
-		function updateTime(time: number) {
-			setTime(time);
-		}
-
-		updateTime(0);
+		(() => {
+			setTime(0);
+		})();
 	}, [text, mode]);
 
+	/**
+	 * After the canPlay state is
+	 * setted to true, the timer starts
+	 * to run.
+	 */
 	useEffect(() => {
 		if (canPlay) {
 			const timer = setInterval(() => {
@@ -305,27 +406,33 @@ const Home: React.FC = () => {
 		}
 	}, [canPlay]);
 
+	/**
+	 * If the game's mode is set to time,
+	 * which is, the game has a limit to be
+	 * finished and this limit is defined to 60
+	 * seconds based on the constant TIME_LIMIT,
+	 * the timer will stop running by setting canPlay
+	 * state to false, which time depends on to run
+	 * properly.
+	 */
 	useEffect(() => {
-		if (mode === "TIMED" && time === 60) {
-			function updateCanPlay(canPlay: boolean): void {
-				setCanPlay(canPlay);
-			}
-
-			updateCanPlay(false);
+		if (mode === "TIMED" && time === TIME_LIMIT) {
+			(() => {
+				setCanPlay(false);
+			})();
 		}
 	}, [time, mode]);
 
+	/**
+	 * Each time the current displayed
+	 * text changes, typedKeys state is
+	 * set to an empty array.
+	 */
 	useEffect(() => {
-		function updateTypedKeys() {
+		(() => {
 			setTypedKeys([]);
-		}
-
-		updateTypedKeys();
+		})();
 	}, [text]);
-
-	useEffect(() => {
-		fetchTextsObject().then(setTextsObject);
-	}, []);
 
 	useEffect(() => {
 		if (textsObject) {
@@ -336,11 +443,9 @@ const Home: React.FC = () => {
 					level,
 				);
 
-			function updateText() {
+			(() => {
 				setText(textBasedOnDifficultAndLevel);
-			}
-
-			updateText();
+			})();
 		}
 	}, [difficult, level, textsObject]);
 
@@ -359,10 +464,8 @@ const Home: React.FC = () => {
 		let correctTypedKeysQuantity = 0;
 
 		const textChars = text.split("");
-		// TODO: remove after refactoring handleKeyboard ↓
 		const textCharsQuantity = textChars.length;
 
-		// TODO: remove after refactoring handleKeyboard ↓
 		if (typedKeysQuantity >= textCharsQuantity) {
 			return;
 		}
@@ -376,13 +479,11 @@ const Home: React.FC = () => {
 			}
 		}
 
-		function updateAccuracy(accuracy: number): void {
-			setAccuracy(accuracy);
-		}
-
-		updateAccuracy(
-			calculateAccuracy(correctTypedKeysQuantity, typedKeysQuantity),
-		);
+		(() => {
+			setAccuracy(
+				calculateAccuracy(correctTypedKeysQuantity, typedKeysQuantity),
+			);
+		})();
 	}, [text, typedKeys]);
 
 	return (
@@ -418,12 +519,12 @@ const Home: React.FC = () => {
 						{renderTextCharsInSpans()}
 					</div>
 					<div
-						onClick={handleHideStartTestModalClick}
+						onClick={handleStartTestBtnClick}
 						className={`${styles.start_test_container} ${!shouldRenderStartTestModal && styles.start_test_container_hidden}`}
 					>
 						<PrimaryButton
 							label="Start Typing Test"
-							handleCLick={handleHideStartTestModalClick}
+							handleCLick={handleStartTestBtnClick}
 						/>
 						<span className={`${styles.start_test_message}`}>
 							Or click the text and start typing.
