@@ -1,5 +1,4 @@
 "use client";
-
 /**
  * TODO: Reafact accuracy implementation
  * as a value evalueted in a useMemo instead
@@ -27,7 +26,7 @@ import {getTextBasedOnGivenDifficultAndLevel} from "@/helpers/getTextBasedOnGive
 import {isValidKey} from "@/helpers/isValidKey";
 import {preventBrowserShortcuts} from "@/helpers/preventBrowserShortcuts";
 
-export default function Home() {
+const Home: React.FC = () => {
 	const {difficult, level, mode, setDifficult, setLevel, setMode} =
 		useContext(GameContext)!;
 
@@ -458,4 +457,6 @@ export default function Home() {
 			)}
 		</div>
 	);
-}
+};
+
+export default Home;

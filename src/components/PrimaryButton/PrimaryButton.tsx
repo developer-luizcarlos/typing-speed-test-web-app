@@ -5,10 +5,12 @@ interface Props {
 	label: string;
 }
 
-export default function PrimaryButton({handleCLick, label}: Props) {
+const PrimaryButton: React.FC<Props> = ({handleCLick, label}) => {
 	return (
 		<button className={`${styles.primary_btn}`} onClick={handleCLick}>
 			{label}
 		</button>
 	);
-}
+};
+
+export default PrimaryButton;

@@ -14,7 +14,7 @@ interface Props {
 	wpm: number;
 }
 
-export default function EndGameScreen({
+const EndGameScreen: React.FC<Props> = ({
 	accuracy,
 	completedIconPath,
 	correctTypedCharsQuantity,
@@ -24,7 +24,7 @@ export default function EndGameScreen({
 	title,
 	wpm,
 	btnLabel,
-}: Props) {
+}: Props) => {
 	return (
 		<div className={`${styles.end_game_screen}`}>
 			<Image
@@ -79,4 +79,6 @@ export default function EndGameScreen({
 			</button>
 		</div>
 	);
-}
+};
+
+export default EndGameScreen;

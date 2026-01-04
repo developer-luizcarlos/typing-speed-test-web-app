@@ -21,7 +21,7 @@ interface Props {
 	handleTimedPillClick: () => void;
 }
 
-export default function Toolbar({
+const Toolbar: React.FC<Props> = ({
 	accuracyValue,
 	timeValue,
 	wpmValue,
@@ -30,7 +30,7 @@ export default function Toolbar({
 	handleMediumPillClick,
 	handlePassagePillClick,
 	handleTimedPillClick,
-}: Props) {
+}: Props) => {
 	const {difficult, mode} = useContext(GameContext)!;
 
 	return (
@@ -94,4 +94,6 @@ export default function Toolbar({
 			</div>
 		</div>
 	);
-}
+};
+
+export default Toolbar;

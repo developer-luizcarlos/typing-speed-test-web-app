@@ -19,7 +19,7 @@ interface Props {
 	children: React.ReactNode;
 }
 
-export default function GameProvider({children}: Props) {
+const GameProvider: React.FC<Props> = ({children}) => {
 	const [difficult, setDifficult] = useState<Difficult>("EASY");
 	const [level, setLevel] = useState(1);
 	const [mode, setMode] = useState<Mode>("TIMED");
@@ -31,4 +31,6 @@ export default function GameProvider({children}: Props) {
 			{children}
 		</GameContext>
 	);
-}
+};
+
+export default GameProvider;

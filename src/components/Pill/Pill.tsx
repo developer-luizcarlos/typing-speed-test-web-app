@@ -6,7 +6,7 @@ interface Props {
 	label: string;
 }
 
-export default function Pill({handleClick, isHighlighted, label}: Props) {
+const Pill: React.FC<Props> = ({handleClick, isHighlighted, label}) => {
 	return (
 		<span
 			className={`${styles.pill} ${isHighlighted && styles.highlighted}`}
@@ -15,4 +15,6 @@ export default function Pill({handleClick, isHighlighted, label}: Props) {
 			{label}
 		</span>
 	);
-}
+};
+
+export default Pill;

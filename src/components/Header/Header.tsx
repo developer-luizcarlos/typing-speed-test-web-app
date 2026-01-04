@@ -6,7 +6,7 @@ interface Props {
 	personalBestWPM: number;
 }
 
-export default function Header({personalBestWPM}: Props) {
+const Header: React.FC<Props> = ({personalBestWPM}) => {
 	return (
 		<header className={`${styles.header}`}>
 			<Image
@@ -35,4 +35,6 @@ export default function Header({personalBestWPM}: Props) {
 			</div>
 		</header>
 	);
-}
+};
+
+export default Header;
