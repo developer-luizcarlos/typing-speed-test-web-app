@@ -1,9 +1,4 @@
 "use client";
-/**
- * TODO: Reafact accuracy implementation
- * as a value evalueted in a useMemo instead
- * of a useEffect.
- */
 
 /**
  * TODO: using indexDB, keep tracking of the
@@ -22,8 +17,6 @@
  * when the player enters the web page, being loaded
  * in the corresponding difficult.
  */
-
-// TODO: Turn text state in a computed value using useMemo.
 
 import styles from "./page.module.css";
 
@@ -69,8 +62,8 @@ const Home: React.FC = () => {
 		useState(true);
 	const [textsObject, setTextsObject] = useState<TextsObject | null>(null);
 	const [text, setText] = useState("");
-	const [typedKeys, setTypedKeys] = useState<string[]>([]);
 	const [time, setTime] = useState(0);
+	const [typedKeys, setTypedKeys] = useState<string[]>([]);
 
 	// Memoized values
 
