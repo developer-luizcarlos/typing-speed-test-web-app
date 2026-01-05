@@ -182,7 +182,7 @@ const Home: React.FC = () => {
 	}, [bestWPM, completedTestsQuantity, wpm]);
 
 	// Handlers
-	const handleEndGameBtnClick = () => {
+	const handleBtnEndGameClick = () => {
 		const maxLevel = 10;
 
 		setAccuracy(0);
@@ -563,7 +563,7 @@ const Home: React.FC = () => {
 					btnLabel={endGameBtnLabel}
 					completedIconPath={endGameIconPath}
 					correctTypedCharsQuantity={correctTypedKeysQuantity}
-					handleBtnClick={handleEndGameBtnClick}
+					handleBtnClick={handleBtnEndGameClick}
 					incorrectTypedCharsQuantity={incorrectTypedCharsQuantity}
 					message={endGameMessage}
 					title={endGameTitle}
