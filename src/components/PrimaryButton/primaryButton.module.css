@@ -1,10 +1,10 @@
 .primaryBtn {
-	background-color: hsl(214, 100%, 55%);
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	color: hsl(0, 0%, 100%);
-	font-size: 1rem;
-	font-weight: bold;
-	padding: 0.75rem;
+  background-color: hsl(214, 100%, 55%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: bold;
+  padding: 0.75rem;
 }

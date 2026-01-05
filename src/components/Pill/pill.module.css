@@ -1,14 +1,16 @@
 .pill {
-	border-radius: 5px;
-	outline: 2px solid hsl(240, 3%, 46%);
-	cursor: pointer;
-	color: hsl(0, 0%, 100%);
-	font-size: 0.95rem;
-	text-align: center;
-	padding-inline: 1.3rem;
+  border-radius: 5px;
+  outline: 2px solid hsl(240, 3%, 46%);
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
+  font-size: clamp(.85rem, 1.2vw, 1rem);
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  padding-inline: 1.3rem;
 }
 
 .highlighted {
-	outline-color: hsl(214, 100%, 55%);
-	color: hsl(214, 100%, 55%);
+  outline-color: hsl(214, 100%, 55%);
+  color: hsl(214, 100%, 55%);
 }

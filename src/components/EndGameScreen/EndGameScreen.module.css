@@ -1,85 +1,86 @@
 .endGameScreen {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	row-gap: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
 }
 
 .endGameHeader {
-	text-align: center;
+  text-align: center;
 }
 
 .endGameTitle {
-	color: hsl(0, 0%, 100%);
-	font-size: 2rem;
+  color: hsl(0, 0%, 100%);
+  font-size: clamp(1.2rem, 2vw, 2.5rem);
 }
 
 .endGameMessage {
-	color: hsl(240, 3%, 46%);
-	font-size: 1rem;
+  color: hsl(240, 3%, 46%);
+  font-size: clamp(0.85rem, 1.5vw, 1.2rem);
 }
 
 .resultContainer {
-	display: flex;
-	align-items: center;
-	column-gap: 25px;
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
 }
 
 .result {
-	border: 1px solid hsl(0, 0%, 15%);
-	border-radius: 10px;
-	min-width: 150px;
-	text-align: center;
-	padding: 0.8rem;
+  border: 1px solid hsl(0, 0%, 15%);
+  border-radius: 10px;
+  width: max(10vw, 100px);
+  text-align: center;
+  padding: 0.8rem;
 }
 
 .resultTitle {
-	color: hsl(240, 3%, 46%);
-	font-weight: 500;
+  color: hsl(240, 3%, 46%);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+  font-weight: 500;
 }
 
 .resultValue {
-	font-size: 1rem;
-	font-weight: bold;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  font-weight: bold;
 }
 
 .resultValueWpm {
-	color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 
 .resultValueAccuracy {
-	color: hsl(354, 63%, 57%);
+  color: hsl(354, 63%, 57%);
 }
 
 .correctTyped {
-	color: hsl(140, 63%, 57%);
+  color: hsl(140, 63%, 57%);
 }
 
 .incorrectTyped {
-	color: hsl(354, 63%, 57%);
+  color: hsl(354, 63%, 57%);
 }
 
 .resultSlashDivisor {
-	color: hsl(240, 3%, 46%);
+  color: hsl(240, 3%, 46%);
 }
 
 .btn {
-	background-color: hsl(0, 0%, 100%);
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-items: center;
-	column-gap: 10px;
-	font-family: inherit;
-	font-size: 1rem;
-	font-weight: bold;
-	margin-top: 30px;
-	padding: 0.75rem;
+  background-color: hsl(0, 0%, 100%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  column-gap: 10px;
+  font-family: inherit;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: bold;
+  margin-top: 30px;
+  padding: min(10vw, 0.75rem);
 }
 
 .btnIcon {
-	filter: brightness(0%);
+  filter: brightness(0%);
 }

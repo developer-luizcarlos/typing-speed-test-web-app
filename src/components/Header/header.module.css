@@ -1,26 +1,29 @@
 .header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
 }
 
 .personalBestContainer {
-	display: flex;
-	align-items: center;
-	column-gap: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .dl {
-	display: flex;
-	align-items: center;
-	column-gap: 5px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .dt {
-	color: hsl(240, 1%, 59%);
+  color: hsl(240, 1%, 59%);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
 }
 
 .dd {
-	color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  font-weight: bold;
 }

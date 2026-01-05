@@ -1,72 +1,72 @@
 body {
-	background-color: hsl(0, 0%, 7%);
-	padding: 4rem;
+  background-color: hsl(0, 0%, 7%);
+  padding: 4rem;
 }
 
 .main {
-	border-top: 1px solid hsl(0, 0%, 15%);
-	border-bottom: 1px solid hsl(0, 0%, 15%);
-	margin-block: 1rem;
-	padding-block: 2rem;
-	position: relative;
+  border-top: 1px solid hsl(0, 0%, 15%);
+  border-bottom: 1px solid hsl(0, 0%, 15%);
+  margin-block: 1rem;
+  padding-block: 2rem;
+  position: relative;
 }
 
 .mainRenderArea {
-	color: hsl(240, 1%, 59%);
-	font-size: 1.5rem;
+  color: hsl(240, 1%, 59%);
+  font-size: clamp(1.5rem, 2.5vw, 1.8rem);
 }
 
 .mainRenderArea.blur {
-	filter: blur(10px);
+  filter: blur(10px);
 }
 
 .startTestContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	row-gap: 20px;
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0%;
-	left: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 20px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
 }
 
 .startTestContainerHidden {
-	display: none;
+  display: none;
 }
 
 .startTestMessage {
-	color: hsl(0, 0%, 100%);
-	font-size: 0.85rem;
-	font-weight: bold;
+  color: hsl(0, 0%, 100%);
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 .btnRestart {
-	background-color: hsl(0, 0%, 15%);
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	color: hsl(0, 0%, 100%);
-	font-family: inherit;
-	font-size: 1rem;
-	font-weight: bold;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	column-gap: 10px;
-	padding: 0.75rem;
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+  background-color: hsl(0, 0%, 15%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+  padding: 0.75rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .charRightTyped {
-	color: hsl(140, 63%, 57%);
+  color: hsl(140, 63%, 57%);
 }
 
 .charWrongTyped {
-	color: hsl(354, 63%, 57%);
-	text-decoration: underline;
+  color: hsl(354, 63%, 57%);
+  text-decoration: underline;
 }
