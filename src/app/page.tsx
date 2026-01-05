@@ -232,7 +232,7 @@ const Home: React.FC = () => {
 		});
 	};
 
-	const handleStartTestBtnClick = () => {
+	const handleBtnStartTestClick = () => {
 		setCanPlay(true);
 		setShouldRenderStartTestModal(false);
 	};
@@ -529,12 +529,12 @@ const Home: React.FC = () => {
 						{renderTextCharsInSpans()}
 					</div>
 					<div
-						onClick={handleStartTestBtnClick}
+						onClick={handleBtnStartTestClick}
 						className={`${styles.startTestContainer} ${!shouldRenderStartTestModal && styles.startTestContainerHidden}`}
 					>
 						<PrimaryButton
 							label="Start Typing Test"
-							handleCLick={handleStartTestBtnClick}
+							handleCLick={handleBtnStartTestClick}
 						/>
 						<span className={`${styles.startTestMessage}`}>
 							Or click the text and start typing.
