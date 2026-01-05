@@ -15,13 +15,13 @@ const Header: React.FC<Props> = ({personalBestWPM}) => {
 				height={50}
 				width={250}
 			/>
-			<div className={`${styles.personal_best_container}`}>
+			<div className={`${styles.personalBestContainer}`}>
 				<Image
 					src={"/images/icon-personal-best.svg"}
 					alt="trophy icon"
 					height={20}
 					width={20}
-					className={`${styles.trophy_icon}`}
+					className={`${styles.trophyIcon}`}
 				/>
 				<dl className={`${styles.dl}`}>
 					<dt className={`${styles.dt}`}>Personal best:</dt>

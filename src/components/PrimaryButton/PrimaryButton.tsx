@@ -7,7 +7,7 @@ interface Props {
 
 const PrimaryButton: React.FC<Props> = ({handleCLick, label}) => {
 	return (
-		<button className={`${styles.primary_btn}`} onClick={handleCLick}>
+		<button className={`${styles.primaryBtn}`} onClick={handleCLick}>
 			{label}
 		</button>
 	);

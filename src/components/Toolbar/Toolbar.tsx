@@ -35,29 +35,29 @@ const Toolbar: React.FC<Props> = ({
 
 	return (
 		<div className={`${styles.toolbar}`}>
-			<dl className={`${styles.game_info}`}>
+			<dl className={`${styles.gameInfo}`}>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>WPM:</dt>
-					<dd className={`${styles.dd} ${styles.dd_wpm}`}>
+					<dd className={`${styles.dd} ${styles.ddWpm}`}>
 						{wpmValue < 10 ? `0${wpmValue}` : wpmValue}
 					</dd>
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Accuracy:</dt>
-					<dd className={`${styles.dd} ${styles.dd_accuracy}`}>
+					<dd className={`${styles.dd} ${styles.ddAccuracy}`}>
 						{accuracyValue}%
 					</dd>
 				</div>
 				<div className={`${styles.group}`}>
 					<dt className={`${styles.dt}`}>Time</dt>
-					<dd className={`${styles.dd} ${styles.dd_time}`}>
+					<dd className={`${styles.dd} ${styles.ddTime}`}>
 						{convertSecondsToMinutesAndSeconds(timeValue)}
 					</dd>
 				</div>
 			</dl>
-			<div className={`${styles.game_config_container}`}>
-				<div className={`${styles.game_config}`}>
-					<span className={`${styles.pseudo_label}`}>Difficult: </span>
+			<div className={`${styles.gameConfigContainer}`}>
+				<div className={`${styles.gameConfig}`}>
+					<span className={`${styles.pseudoLabel}`}>Difficult: </span>
 					<div className={`${styles.group}`}>
 						<Pill
 							isHighlighted={difficult === "EASY"}
@@ -76,8 +76,8 @@ const Toolbar: React.FC<Props> = ({
 						/>
 					</div>
 				</div>
-				<div className={`${styles.game_config}`}>
-					<span className={`${styles.pseudo_label}`}>Mode:</span>
+				<div className={`${styles.gameConfig}`}>
+					<span className={`${styles.pseudoLabel}`}>Mode:</span>
 					<div className={`${styles.group}`}>
 						<Pill
 							isHighlighted={mode === "TIMED"}

@@ -1,4 +1,4 @@
-.end_game_screen {
+.endGameScreen {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -6,21 +6,21 @@
 	row-gap: 25px;
 }
 
-.end_game_header {
+.endGameHeader {
 	text-align: center;
 }
 
-.end_game_title {
+.endGameTitle {
 	color: hsl(0, 0%, 100%);
 	font-size: 2rem;
 }
 
-.end_game_message {
+.endGameMessage {
 	color: hsl(240, 3%, 46%);
 	font-size: 1rem;
 }
 
-.result_container {
+.resultContainer {
 	display: flex;
 	align-items: center;
 	column-gap: 25px;
@@ -34,33 +34,33 @@
 	padding: 0.8rem;
 }
 
-.result_title {
+.resultTitle {
 	color: hsl(240, 3%, 46%);
 	font-weight: 500;
 }
 
-.result_value {
+.resultValue {
 	font-size: 1rem;
 	font-weight: bold;
 }
 
-.result_value_wpm {
+.resultValueWpm {
 	color: hsl(0, 0%, 100%);
 }
 
-.result_value_accuracy {
+.resultValueAccuracy {
 	color: hsl(354, 63%, 57%);
 }
 
-.correct_typed {
+.correctTyped {
 	color: hsl(140, 63%, 57%);
 }
 
-.incorrect_typed {
+.incorrectTyped {
 	color: hsl(354, 63%, 57%);
 }
 
-.result_slash_divisor {
+.resultSlashDivisor {
 	color: hsl(240, 3%, 46%);
 }
 
@@ -80,6 +80,6 @@
 	padding: 0.75rem;
 }
 
-.btn_icon {
+.btnIcon {
 	filter: brightness(0%);
 }

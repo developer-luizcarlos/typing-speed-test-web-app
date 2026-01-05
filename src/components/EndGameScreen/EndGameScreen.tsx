@@ -26,42 +26,40 @@ const EndGameScreen: React.FC<Props> = ({
 	btnLabel,
 }: Props) => {
 	return (
-		<div className={`${styles.end_game_screen}`}>
+		<div className={`${styles.endGameScreen}`}>
 			<Image
 				src={completedIconPath}
 				alt="completed icon"
 				height={70}
 				width={70}
 			/>
-			<header className={`${styles.end_game_header}`}>
-				<h1 className={`${styles.end_game_title}`}>{title}</h1>
-				<p className={`${styles.end_game_message}`}>{message}</p>
+			<header className={`${styles.endGameHeader}`}>
+				<h1 className={`${styles.endGameTitle}`}>{title}</h1>
+				<p className={`${styles.endGameMessage}`}>{message}</p>
 			</header>
-			<main className={`${styles.result_container}`}>
+			<main className={`${styles.resultContainer}`}>
 				<div className={`${styles.result}`}>
-					<h4 className={`${styles.result_title}`}>WPM:</h4>
-					<p
-						className={`${styles.result_value} ${styles.result_value_wpm}`}
-					>
+					<h4 className={`${styles.resultTitle}`}>WPM:</h4>
+					<p className={`${styles.resultValue} ${styles.resultValueWpm}`}>
 						{wpm < 10 ? `0${wpm}` : wpm}
 					</p>
 				</div>
 				<div className={`${styles.result}`}>
-					<h4 className={`${styles.result_title}`}>Accuracy:</h4>
+					<h4 className={`${styles.resultTitle}`}>Accuracy:</h4>
 					<p
-						className={`${styles.result_value} ${styles.result_value_accuracy}`}
+						className={`${styles.resultValue} ${styles.resultValueAccuracy}`}
 					>
 						{accuracy < 10 ? `0${accuracy}` : accuracy}%
 					</p>
 				</div>
 				<div className={`${styles.result}`}>
-					<h4 className={`${styles.result_title}`}>Characters:</h4>
-					<p className={`${styles.result_value}`}>
-						<span className={`${styles.correct_typed}`}>
+					<h4 className={`${styles.resultTitle}`}>Characters:</h4>
+					<p className={`${styles.resultValue}`}>
+						<span className={`${styles.correctTyped}`}>
 							{correctTypedCharsQuantity}
 						</span>
-						<span className={`${styles.result_slash_divisor}`}>/</span>
-						<span className={`${styles.incorrect_typed}`}>
+						<span className={`${styles.resultSlashDivisor}`}>/</span>
+						<span className={`${styles.incorrectTyped}`}>
 							{incorrectTypedCharsQuantity}
 						</span>
 					</p>
@@ -74,7 +72,7 @@ const EndGameScreen: React.FC<Props> = ({
 					alt="icon"
 					height={18}
 					width={18}
-					className={`${styles.btn_icon}`}
+					className={`${styles.btnIcon}`}
 				/>
 			</button>
 		</div>

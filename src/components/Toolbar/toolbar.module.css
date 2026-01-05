@@ -4,7 +4,7 @@
 	justify-content: space-between;
 }
 
-.game_info {
+.gameInfo {
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -27,19 +27,19 @@
 	font-weight: bold;
 }
 
-.dd_accuracy {
+.ddAccuracy {
 	color: hsl(354, 63%, 57%);
 }
 
-.dd_time {
+.ddTime {
 	color: hsl(49, 85%, 70%);
 }
 
-.dd_wpm {
+.ddWpm {
 	color: hsl(0, 0%, 100%);
 }
 
-.game_config_container {
+.gameConfigContainer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -47,13 +47,13 @@
 	column-rule: solid 1px hsl(0, 0%, 15%);
 }
 
-.pseudo_label {
+.pseudoLabel {
 	color: hsl(240, 1%, 59%);
 	font-size: 0.9rem;
 	font-weight: 300;
 }
 
-.game_config {
+.gameConfig {
 	display: flex;
 	align-items: center;
 	column-gap: 25px;

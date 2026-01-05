@@ -254,7 +254,7 @@ const Home: React.FC = () => {
 			return (
 				<span
 					key={index}
-					className={`${areSameLetter ? styles.char_right_typed : styles.char_wrong_typed}`}
+					className={`${areSameLetter ? styles.charRightTyped : styles.charWrongTyped}`}
 				>
 					{t}
 				</span>
@@ -507,26 +507,26 @@ const Home: React.FC = () => {
 			{!isGameEnded && (
 				<main key={text} className={`${styles.main}`}>
 					<div
-						className={`${styles.main_render_area} ${shouldRenderStartTestModal && styles.blur}`}
+						className={`${styles.mainRenderArea} ${shouldRenderStartTestModal && styles.blur}`}
 					>
 						{renderTextCharsInSpans()}
 					</div>
 					<div
 						onClick={handleStartTestBtnClick}
-						className={`${styles.start_test_container} ${!shouldRenderStartTestModal && styles.start_test_container_hidden}`}
+						className={`${styles.startTestContainer} ${!shouldRenderStartTestModal && styles.startTestContainerHidden}`}
 					>
 						<PrimaryButton
 							label="Start Typing Test"
 							handleCLick={handleStartTestBtnClick}
 						/>
-						<span className={`${styles.start_test_message}`}>
+						<span className={`${styles.startTestMessage}`}>
 							Or click the text and start typing.
 						</span>
 					</div>
 				</main>
 			)}
 			{!shouldRenderStartTestModal && !isGameEnded && (
-				<button className={`${styles.btn_restart}`}>
+				<button className={`${styles.btnRestart}`}>
 					<span>Restart Test</span>
 					<Image
 						src={"/images/icon-restart.svg"}

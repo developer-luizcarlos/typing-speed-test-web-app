@@ -11,16 +11,16 @@ body {
 	position: relative;
 }
 
-.main_render_area {
+.mainRenderArea {
 	color: hsl(240, 1%, 59%);
 	font-size: 1.5rem;
 }
 
-.main_render_area.blur {
+.mainRenderArea.blur {
 	filter: blur(10px);
 }
 
-.start_test_container {
+.startTestContainer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -33,17 +33,17 @@ body {
 	left: 0%;
 }
 
-.start_test_container_hidden {
+.startTestContainerHidden {
 	display: none;
 }
 
-.start_test_message {
+.startTestMessage {
 	color: hsl(0, 0%, 100%);
 	font-size: 0.85rem;
 	font-weight: bold;
 }
 
-.btn_restart {
+.btnRestart {
 	background-color: hsl(0, 0%, 15%);
 	border: none;
 	border-radius: 5px;
@@ -62,11 +62,11 @@ body {
 	transform: translateX(-50%);
 }
 
-.char_right_typed {
+.charRightTyped {
 	color: hsl(140, 63%, 57%);
 }
 
-.char_wrong_typed {
+.charWrongTyped {
 	color: hsl(354, 63%, 57%);
 	text-decoration: underline;
 }
