@@ -36,6 +36,7 @@ import {
 	useContext,
 	useEffect,
 	useMemo,
+	useRef,
 	useState,
 } from "react";
 
@@ -64,6 +65,9 @@ const Home: React.FC = () => {
 	const [text, setText] = useState("");
 	const [time, setTime] = useState(0);
 	const [typedKeys, setTypedKeys] = useState<string[]>([]);
+
+	// Refs
+	const btnRestartRef = useRef<HTMLButtonElement>(null);
 
 	// Memoized values
 
@@ -231,6 +235,19 @@ const Home: React.FC = () => {
 	const handleStartTestBtnClick = () => {
 		setCanPlay(true);
 		setShouldRenderStartTestModal(false);
+	};
+
+	const handleBtnRestartClick = () => {
+		setTypedKeys([]);
+		setTime(0);
+
+		/**
+		 * Prevents triggering this handler
+		 * one more time when the user is already
+		 * playing and tries to insert the space
+		 * character by pressing the space key.
+		 */
+		btnRestartRef.current!.blur();
 	};
 
 	// Other functions
@@ -526,7 +543,11 @@ const Home: React.FC = () => {
 				</main>
 			)}
 			{!shouldRenderStartTestModal && !isGameEnded && (
-				<button className={`${styles.btnRestart}`}>
+				<button
+					className={`${styles.btnRestart}`}
+					ref={btnRestartRef}
+					onClick={handleBtnRestartClick}
+				>
 					<span>Restart Test</span>
 					<Image
 						src={"/images/icon-restart.svg"}
