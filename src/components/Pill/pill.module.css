@@ -15,3 +15,16 @@
 	border-color: hsl(210, 100%, 65%);
 	color: hsl(210, 100%, 65%);
 }
+
+@media only screen and (hover: hover) {
+	.pill:hover:not(.highlighted) {
+		border-color: hsl(210, 100%, 65%);
+		color: hsl(210, 100%, 65%);
+	}
+}
+
+@media only screen and (prefers-reduced-motion: no-preference) {
+	.pill:not(.highlighted) {
+		transition: border 0.3s ease;
+	}
+}
