@@ -8,12 +8,12 @@ interface Props {
 
 const Pill: React.FC<Props> = ({handleClick, isHighlighted, label}) => {
 	return (
-		<span
+		<button
 			className={`${styles.pill} ${isHighlighted && styles.highlighted}`}
 			onClick={handleClick}
 		>
 			{label}
-		</span>
+		</button>
 	);
 };
 
