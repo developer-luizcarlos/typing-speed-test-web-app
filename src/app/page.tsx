@@ -353,9 +353,14 @@ const Home: React.FC = () => {
 			}
 
 			const completedTestsQuantity = +localStorage.getItem("completed")!;
-			const incrementedQuantity = completedTestsQuantity + 1;
 
-			localStorage.setItem("completed", incrementedQuantity.toString());
+			if (!completedTestsQuantity) {
+				localStorage.setItem("completed", "1");
+
+				(() => {
+					setCompletedTestsQuantity(1);
+				})();
+			}
 		}
 	}, [isGameEnded, wpm]);
 
