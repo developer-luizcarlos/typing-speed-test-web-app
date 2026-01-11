@@ -222,6 +222,10 @@ const Home: React.FC = () => {
 		if (wpm > bestWPM) {
 			setBestWPM(wpm);
 		}
+
+		if (!completedTestsQuantity) {
+			setCompletedTestsQuantity(1);
+		}
 	};
 
 	const handleKeyboard = (event: KeyboardEvent) => {
@@ -356,10 +360,6 @@ const Home: React.FC = () => {
 
 			if (!completedTestsQuantity) {
 				localStorage.setItem("completed", "1");
-
-				(() => {
-					setCompletedTestsQuantity(1);
-				})();
 			}
 		}
 	}, [isGameEnded, wpm]);
