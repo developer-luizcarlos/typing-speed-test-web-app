@@ -2,6 +2,9 @@ import styles from "./header.module.css";
 
 import Image from "next/image.js";
 
+import iconPersonalBest from "../../../images/icon-personal-best.svg";
+import LargeLogo from "../../../images/logo-large.svg";
+
 interface Props {
 	personalBestWPM: number;
 }
@@ -9,15 +12,10 @@ interface Props {
 const Header: React.FC<Props> = ({personalBestWPM}) => {
 	return (
 		<header className={`${styles.header}`}>
-			<Image
-				src={"/images/logo-large.svg"}
-				alt="logo"
-				height={50}
-				width={250}
-			/>
+			<Image src={LargeLogo} alt="logo" height={50} width={250} />
 			<div className={`${styles.personalBestContainer}`}>
 				<Image
-					src={"/images/icon-personal-best.svg"}
+					src={iconPersonalBest}
 					alt="trophy icon"
 					height={20}
 					width={20}

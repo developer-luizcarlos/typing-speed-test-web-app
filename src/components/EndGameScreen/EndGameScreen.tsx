@@ -2,6 +2,8 @@ import styles from "./EndGameScreen.module.css";
 
 import Image from "next/image.js";
 
+import iconRestart from "../../../images/icon-restart.svg";
+
 interface Props {
 	accuracy: number;
 	btnLabel: string;
@@ -68,7 +70,7 @@ const EndGameScreen: React.FC<Props> = ({
 			<button className={`${styles.btn}`} onClick={handleBtnClick}>
 				<span>{btnLabel}</span>
 				<Image
-					src={"/images/icon-restart.svg"}
+					src={iconRestart}
 					alt="icon"
 					height={18}
 					width={18}

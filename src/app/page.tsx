@@ -22,6 +22,10 @@ import styles from "./page.module.css";
 
 import Image from "next/image.js";
 
+import iconCompleted from "../../images/icon-completed.svg";
+import iconNew from "../../images/icon-new-pb.svg";
+import iconRestart from "../../images/icon-restart.svg";
+
 import EndGameScreen from "@/components/EndGameScreen/EndGameScreen";
 import Header from "@/components/Header/Header";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
@@ -151,10 +155,10 @@ const Home: React.FC = () => {
 
 	const endGameIconPath = useMemo(() => {
 		if (bestWPM !== 0 && wpm > bestWPM) {
-			return "/images/icon-new-pb.svg";
+			return iconNew;
 		}
 
-		return "/images/icon-completed.svg";
+		return iconCompleted;
 	}, [bestWPM, wpm]);
 
 	const endGameMessage = useMemo(() => {
@@ -469,6 +473,10 @@ const Home: React.FC = () => {
 		};
 	}, [canPlay]);
 
+	/**
+	 * Update accuracy each time
+	 * text or typed keys change.
+	 */
 	useEffect(() => {
 		const typedKeysQuantity = typedKeys.length;
 		let correctTypedKeysQuantity = 0;
@@ -550,7 +558,7 @@ const Home: React.FC = () => {
 				>
 					<span>Restart Test</span>
 					<Image
-						src={"/images/icon-restart.svg"}
+						src={iconRestart}
 						alt="restart icon"
 						height={20}
 						width={20}
