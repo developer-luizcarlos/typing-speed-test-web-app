@@ -218,6 +218,10 @@ const Home: React.FC = () => {
 
 			return (currentLevel += 1);
 		});
+
+		if (wpm > bestWPM) {
+			setBestWPM(wpm);
+		}
 	};
 
 	const handleKeyboard = (event: KeyboardEvent) => {
