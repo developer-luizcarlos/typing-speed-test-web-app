@@ -11,6 +11,11 @@
 	padding: 5px 1.3rem;
 }
 
+.pill:focus {
+	outline: 2px solid hsl(210, 100%, 65%);
+	outline-offset: 3px;
+}
+
 .highlighted {
 	border-color: hsl(210, 100%, 65%);
 	color: hsl(210, 100%, 65%);
